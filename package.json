@@ -1,0 +1,27 @@
+{
+  "name": "homebanking",
+  "version": "1.0.0",
+  "description": "Simulador de Home Banking",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonMaia/HomeBanking.git"
+  },
+  "author": "Jonathan Nicolas Maia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonMaia/HomeBanking/issues"
+  },
+  "homepage": "https://github.com/JonMaia/HomeBanking#readme",
+  "dependencies": {
+    "express": "4.17.1",
+    "mongoose": "5.7.6",
+    "mongoose-sequence": "5.2.2",
+    "morgan": "1.9.1",
+    "nodemon": "1.19.4"
+  }
+}
