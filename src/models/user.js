@@ -13,7 +13,7 @@ const User = new Schema({
         validate: function (v) {
             return /(^([0-9]{8,8})|^)$/.test(v);
         },
-        required: true
+        required: [true, 'The DNI is required']
     },
     name: {
         type: String,
