@@ -13,4 +13,13 @@ module.exports = class UserController {
             return ErrorHandler.handleError(res, new ErrorValidation(error.message));
         }
     }
+
+    static async getUser(req, res){
+        try {
+            const user = await User.find({id: req.params.id});
+            res.json(user);
+        } catch(error){
+            return ErrorHandler.handleError(res, new ErrorValidation(error.message));
+        }
+    }
 };
