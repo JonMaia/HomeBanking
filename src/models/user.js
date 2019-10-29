@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 const { Schema } = mongoose;
 
-const User = new Schema({
+const UserSchema = new Schema({
     id: {
         type: Number,
         default: 1,
@@ -33,5 +33,12 @@ const User = new Schema({
     },
 });
 
-User.plugin(AutoIncrement, {id: 'order_seq', inc_field: 'id'});
-module.exports = mongoose.model('User', User);
+//UserSchema.pre('save', next => {
+//    now = new Date();
+//    if(!this.date){
+//        this.date = now;
+//    }
+//});
+
+UserSchema.plugin(AutoIncrement, {id: 'order_seq', inc_field: 'id'});
+module.exports = mongoose.model('User', UserSchema);
