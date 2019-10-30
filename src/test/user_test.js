@@ -5,19 +5,19 @@ const request = require('supertest');
 const app = require('../index');
 const conn = require('../db_index');
 
+before((done) => {
+    conn.connect()
+        .then(() => done())
+        .catch((err) => done(err));
+});
+
+after((done) => {
+    conn.close()
+        .then(() => done())
+        .catch((err) => done(err));
+});
+
 describe('POST /user/', () => {
-
-    before((done) => {
-        conn.connect()
-            .then(() => done())
-            .catch((err) => done(err));
-    });
-
-    after((done) => {
-        conn.close()
-            .then(() => done())
-            .catch((err) => done(err));
-    });
 
     it('Ok, creating a new user', (done) => {
         request(app).post('/user/')
@@ -43,4 +43,22 @@ describe('POST /user/', () => {
                 return done();
             }).catch((err) => done(err));
     });
-})
+
+    
+});
+
+describe('UPDATE /user/:id', () => {
+
+    it('Ok, updated a user', (done) => {
+        request(app).put('/user/1')
+            .send({ dni: 35262730, name: "Update", password: "updatedd", email: "upd@upd.com" })
+            .then((res) => {
+                const body = res.body;
+                expect(body).to.have.property('dni').to.be.equal(35262730);
+                expect(body).to.have.property('name').to.be.equal('Update');
+                expect(body).to.have.property('password').to.be.equal('updatedd');
+                expect(body).to.have.property('email').to.be.equal('upd@upd.com');
+                return done();
+            }).catch((err) => done(err));
+    });
+});

@@ -5,7 +5,7 @@ const ErrorValidation = require('../errors_response/error_validation');
 
 module.exports = class UserController {
 
-    static async regiterUser(req, res){
+    static async registerUser(req, res){
         try {
             const user = new User(req.body);
             await user.save();
@@ -23,6 +23,18 @@ module.exports = class UserController {
             }
             res.json(user);
         } catch(error){
+            return ErrorHandler.handleError(res, new ErrorValidation(error.message));
+        }
+    }
+
+    static async updateUser(req, res){
+        try {
+            const user = await User.findOneAndUpdate({id: req.params.id}, {$set: req.body}, {new: true});
+            if (!user) {
+                return ErrorHandler.handleError(res, new ErrorToFindUser());
+            }
+            res.json(user);
+        } catch(error) {
             return ErrorHandler.handleError(res, new ErrorValidation(error.message));
         }
     }
