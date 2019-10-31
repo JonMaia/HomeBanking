@@ -43,8 +43,6 @@ describe('POST /user/', () => {
                 return done();
             }).catch((err) => done(err));
     });
-
-    
 });
 
 describe('UPDATE /user/:id', () => {
@@ -58,6 +56,18 @@ describe('UPDATE /user/:id', () => {
                 expect(body).to.have.property('name').to.be.equal('Update');
                 expect(body).to.have.property('password').to.be.equal('updatedd');
                 expect(body).to.have.property('email').to.be.equal('upd@upd.com');
+                return done();
+            }).catch((err) => done(err));
+    });
+});
+
+describe('DELETE /user/:id', () => {
+
+    it('Ok, deleted a user', (done) => {
+        request(app).delete('/user/1')
+            .then((res) => {
+                const body = res.body
+                expect(body.message).to.equal('35262730 is deleted');
                 return done();
             }).catch((err) => done(err));
     });
