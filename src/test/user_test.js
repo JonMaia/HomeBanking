@@ -43,6 +43,26 @@ describe('POST /user/', () => {
                 return done();
             }).catch((err) => done(err));
     });
+
+    it('Fail, user requires name', (done) => {
+        request(app).post('/user/')
+            .send({ dni: 35262728, password: "testeando", email: "test@test.com" })
+            .then((res) => {
+                const body = res.body;
+                expect(body.message).to.equal('User validation failed: name: The name is required');
+                return done();
+            }).catch((err) => done(err));
+    });
+
+    it('Fail, user requires password', (done) => {
+        request(app).post('/user/')
+            .send({ dni: 35262728, name: "test", email: "test@test.com" })
+            .then((res) => {
+                const body = res.body;
+                expect(body.message).to.equal('User validation failed: name: The name is required');
+                return done();
+            }).catch((err) => done(err));
+    });
 });
 
 describe('UPDATE /user/:id', () => {
