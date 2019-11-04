@@ -55,7 +55,7 @@ module.exports = class UserController {
 
     static async loginUser(req, res){
         try {
-            const user = await User.findOne({ name: req.body.name }).exec();
+            const user = await User.findOne({ email: req.body.email }).exec();
             if(!user){
                 return ErrorHandler.handleError(res, new ErrorToFindUser());
             }
