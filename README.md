@@ -1,3 +1,5 @@
+[![Build Status](https://www.travis-ci.org/JonMaia/HomeBanking.svg?branch=master)](https://www.travis-ci.org/JonMaia/HomeBanking)
+
 # HomeBanking
 
 Implementación de un pseudo-homebanking.
