@@ -17,9 +17,9 @@ const UserSchema = new Schema({
         required: [true, 'The DNI is required'],
         unique: true
     },
-    name: {
+    username: {
         type: String,
-        required: [true, 'The name is required']
+        required: [true, 'The username is required']
     },
     password: {
         type: String,

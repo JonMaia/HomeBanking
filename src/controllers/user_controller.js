@@ -55,7 +55,9 @@ module.exports = class UserController {
 
     static async loginUser(req, res){
         try {
-            const user = await User.findOne({ email: req.body.email }).exec();
+            const username = req.body.username;
+            const email = req.body.email;
+            const user = await User.findOne({$or:[{username: username}, {email: email}]}).exec();
             if(!user){
                 return ErrorHandler.handleError(res, new ErrorToFindUser());
             }
@@ -65,6 +67,15 @@ module.exports = class UserController {
                 res.json({message: `The user ${user.name} is login correctly`});
             }
         } catch(error) {
+            return ErrorHandler.handleError(res, new ErrorValidation(error.message));
+        }
+    }
+
+    static async getAllUser(req, res){
+        try {
+            const users = await User.find({}).exec();
+            res.json(users);
+        } catch (error) {
             return ErrorHandler.handleError(res, new ErrorValidation(error.message));
         }
     }

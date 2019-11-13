@@ -10,7 +10,7 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(express.json()); 
 
 // Routes
-app.use('/user', require('./routes/user_routes'));
+app.use('/api/user', require('./routes/user_routes'));
 
 // Static files
 app.use(express.static(__dirname + '/public'));
