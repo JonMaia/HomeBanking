@@ -7,7 +7,7 @@
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "test": "mocha src/test/ --recursive --timeout 10000 --exit",
-    "webpack": "webpack --mode development"
+    "webpack": "webpack --mode development --watch"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "mockgoose": "8.0.3",
     "nodemon": "1.19.4",
     "supertest": "4.0.2",
+    "vue": "2.6.10",
     "vue-loader": "15.7.2",
     "vue-template-compiler": "2.6.10",
     "webpack": "4.41.2",
