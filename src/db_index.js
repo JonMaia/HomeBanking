@@ -27,6 +27,7 @@ function connect() {
 }
 
 function close() {
+    mongoose.connection.db.dropDatabase();
     return mongoose.disconnect();
 }
 

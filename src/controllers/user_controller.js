@@ -64,7 +64,7 @@ module.exports = class UserController {
             if(!await user.comparePassword(req.body.password)){
                 return ErrorHandler.handleError(res, new ErrorPasswordInvalid());
             } else {
-                res.json({message: `The user ${user.name} is login correctly`});
+                res.json({message: `The user ${user.username} is login correctly`});
             }
         } catch(error) {
             return ErrorHandler.handleError(res, new ErrorValidation(error.message));

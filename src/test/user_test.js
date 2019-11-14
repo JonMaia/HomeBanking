@@ -18,16 +18,16 @@ after((done) => {
         .catch((err) => done(err));
 });
 
-describe('POST /user/register', () => {
+describe('POST /api/user/register', () => {
 
     it('Ok, creating a new user', (done) => {
-        request(app).post('/user/register')
-            .send({ dni: 35262728, name: "Test", password: "testeando", email: "test@test.com" })
+        request(app).post('/api/user/register')
+            .send({ dni: 35262728, username: "Test", password: "testeando", email: "test@test.com" })
             .then((res) => {
                 const body = res.body;
                 expect(body).to.contain.property('id');
                 expect(body).to.contain.property('dni');
-                expect(body).to.contain.property('name');
+                expect(body).to.contain.property('username');
                 expect(body).to.contain.property('password');
                 expect(body).to.contain.property('email');
                 expect(body).to.contain.property('date');
@@ -36,8 +36,8 @@ describe('POST /user/register', () => {
     });
 
     it('Fail, user requires dni', (done) => {
-        request(app).post('/user/register')
-            .send({ name: "Test", password: "testeando", email: "test@test.com" })
+        request(app).post('/api/user/register')
+            .send({ username: "Test", password: "testeando", email: "test@test.com" })
             .then((res) => {
                 const body = res.body;
                 expect(body.message).to.equal('User validation failed: dni: The DNI is required');
@@ -45,19 +45,19 @@ describe('POST /user/register', () => {
             }).catch((err) => done(err));
     });
 
-    it('Fail, user requires name', (done) => {
-        request(app).post('/user/register')
+    it('Fail, user requires username', (done) => {
+        request(app).post('/api/user/register')
             .send({ dni: 35262728, password: "testeando", email: "test@test.com" })
             .then((res) => {
                 const body = res.body;
-                expect(body.message).to.equal('User validation failed: name: The name is required');
+                expect(body.message).to.equal('User validation failed: username: The username is required');
                 return done();
             }).catch((err) => done(err));
     });
 
     it('Fail, user requires password', (done) => {
-        request(app).post('/user/register')
-            .send({ dni: 35262728, name: "test", email: "test@test.com" })
+        request(app).post('/api/user/register')
+            .send({ dni: 35262728, username: "test", email: "test@test.com" })
             .then((res) => {
                 const body = res.body;
                 expect(body.message).to.equal('User validation failed: password: The password is required');
@@ -66,25 +66,26 @@ describe('POST /user/register', () => {
     });
 });
 
-describe('POST /user/login', () => {
+describe('POST /api/user/login', () => {
 
     before(async function() {
-        const userLogin = new User({dni: 32323235, name: 'Login', password: 'login1234', email: 'login@email.com'});
+        const userLogin = new User({dni: 32323235, username: 'Login', password: 'login1234', email: 'login@email.com'});
         await userLogin.save();
     });
 
     it('Ok, login a user', (done) => {
-        request(app).post('/user/login')
+        request(app).post('/api/user/login')
             .send({ email: 'login@email.com', password: 'login1234'})
             .then((res) => {
                 const body = res.body;
+                console.log(body);
                 expect(body.message).to.equal(`The user Login is login correctly`);
                 return done();
             }).catch((err) => done(err));
     });
 
     it('Fail, the user password does not correctly', (done) => {
-        request(app).post('/user/login')
+        request(app).post('/api/user/login')
             .send({ email: "login@email.com", password: "asd1234" })
             .then((res) => {
                 const body = res.body;
@@ -94,15 +95,15 @@ describe('POST /user/login', () => {
     });
 });
 
-describe('UPDATE /user/:id', () => {
+describe('UPDATE /api/user/:id', () => {
 
     it('Ok, updated a user id 1', (done) => {
-        request(app).put('/user/1')
-            .send({ dni: 35262730, name: "Update", password: "updatedd", email: "upd@upd.com" })
+        request(app).put('/api/user/1')
+            .send({ dni: 35262730, username: "Update", password: "updatedd", email: "upd@upd.com" })
             .then((res) => {
                 const body = res.body;
                 expect(body).to.have.property('dni').to.be.equal(35262730);
-                expect(body).to.have.property('name').to.be.equal('Update');
+                expect(body).to.have.property('username').to.be.equal('Update');
                 expect(body).to.have.property('password').to.be.equal('updatedd');
                 expect(body).to.have.property('email').to.be.equal('upd@upd.com');
                 return done();
@@ -110,10 +111,10 @@ describe('UPDATE /user/:id', () => {
     });
 });
 
-describe('DELETE /user/:id', () => {
+describe('DELETE /api/user/:id', () => {
 
     it('Ok, deleted a user id 1', (done) => {
-        request(app).delete('/user/1')
+        request(app).delete('/api/user/1')
             .then((res) => {
                 const body = res.body
                 expect(body.message).to.equal('35262730 is deleted');
