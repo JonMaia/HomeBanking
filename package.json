@@ -21,7 +21,7 @@
   "homepage": "https://github.com/JonMaia/HomeBanking#readme",
   "dependencies": {
     "bcryptjs": "2.4.3",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "jshint": "2.10.2",
     "mongoose": "5.7.6",
     "mongoose-sequence": "5.2.2",
